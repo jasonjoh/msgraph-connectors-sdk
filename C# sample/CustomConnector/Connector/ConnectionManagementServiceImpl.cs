@@ -31,7 +31,10 @@ namespace CustomConnector.Connector
         /// <param name="request">Request containing all the authentication information</param>
         /// <param name="context">Grpc caller context</param>
         /// <returns>Response with validation result</returns>
-        public override Task<ValidateAuthenticationResponse> ValidateAuthentication(ValidateAuthenticationRequest request, ServerCallContext context)
+        // <ValidateAuthenticationSnippet>
+        public override Task<ValidateAuthenticationResponse> ValidateAuthentication(
+            ValidateAuthenticationRequest request, 
+            ServerCallContext context)
         {
             try
             {
@@ -42,9 +45,11 @@ namespace CustomConnector.Connector
             catch (Exception ex)
             {
                 Log.Error(ex.ToString());
-                return this.BuildAuthValidationResponse(false, "Could not read the provided CSV file with the provided credentials");
+                return this.BuildAuthValidationResponse(
+                    false, "Could not read the provided CSV file with the provided credentials");
             }
         }
+        // </ValidateAuthenticationSnippet>
 
         private Task<ValidateAuthenticationResponse> BuildAuthValidationResponse(bool accessSuccess, string errorMessageOnFailure = "")
         {
@@ -83,7 +88,10 @@ namespace CustomConnector.Connector
         /// <param name="request">Request with all required information</param>
         /// <param name="context">Grpc caller context</param>
         /// <returns>Validation status</returns>
-        public override Task<ValidateCustomConfigurationResponse> ValidateCustomConfiguration(ValidateCustomConfigurationRequest request, ServerCallContext context)
+        // <ValidateCustomConfigurationSnippet>
+        public override Task<ValidateCustomConfigurationResponse> ValidateCustomConfiguration(
+            ValidateCustomConfigurationRequest request, 
+            ServerCallContext context)
         {
             Log.Information("Validating custom configuration");
             ValidateCustomConfigurationResponse response;
@@ -112,6 +120,7 @@ namespace CustomConnector.Connector
 
             return Task.FromResult(response);
         }
+        // </ValidateCustomConfigurationSnippet>
 
         /// <summary>
         /// Returns schema of item retrieved from data source. Schema defines properties available to be read from datasource for individual entities.
@@ -122,7 +131,10 @@ namespace CustomConnector.Connector
         /// <param name="request">Request will all info to connect to datasource</param>
         /// <param name="context">Grpc caller context</param>
         /// <returns>List of properties available for datasource entities</returns>
-        public override Task<GetDataSourceSchemaResponse> GetDataSourceSchema(GetDataSourceSchemaRequest request, ServerCallContext context)
+        // <GetDataSourceSchemaSnippet>
+        public override Task<GetDataSourceSchemaResponse> GetDataSourceSchema(
+            GetDataSourceSchemaRequest request, 
+            ServerCallContext context)
         {
             Log.Information("Trying to fetch datasource schema");
 
@@ -139,6 +151,6 @@ namespace CustomConnector.Connector
 
             return Task.FromResult(response);
         }
-
+        // </GetDataSourceSchemaSnippet>
     }
 }

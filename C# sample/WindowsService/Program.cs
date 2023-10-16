@@ -1,21 +1,26 @@
+// <ProgramSnippet>
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace CustomConnectorWorkerService
 {
-    public class Program
+    namespace CustomConnectorWorkerService
     {
-        public static void Main(string[] args)
+        public class Program
         {
-            CreateHostBuilder(args).Build().Run();
-        }
+            public static void Main(string[] args)
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .UseWindowsService()
-                .ConfigureServices((hostContext, services) =>
-                {
-                    services.AddHostedService<Worker>();
-                });
+            public static IHostBuilder CreateHostBuilder(string[] args) =>
+                Host.CreateDefaultBuilder(args)
+                .UseWindowsService()
+                    .ConfigureServices((hostContext, services) =>
+                    {
+                        services.AddHostedService<Worker>();
+                    });
+        }
     }
 }
+// </ProgramSnippet>

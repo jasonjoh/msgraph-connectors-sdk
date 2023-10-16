@@ -1,13 +1,11 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
-using CsvHelper.TypeConversion;
-
-using CustomConnector.Models;
-
+﻿// <CsvDataLoaderSnippet>
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-
+using CsvHelper;
+using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
+using CustomConnector.Models;
 using Microsoft.Graph.Connectors.Contracts.Grpc;
 
 namespace CustomConnector.Data
@@ -31,7 +29,9 @@ namespace CustomConnector.Data
             {
                 csv.Context.RegisterClassMap<AppliancePartMap>();
 
-                // The GetRecords<T> method will return an IEnumerable<T> that will yield records. What this means is that only a single record is returned at a time as you iterate the records.
+                // The GetRecords<T> method will return an IEnumerable<T>
+                // that will yield records. What this means is that only a
+                // single record is returned at a time as you iterate the records.
                 foreach (var record in csv.GetRecords<AppliancePart>())
                 {
                     yield return record.ToCrawlItem();
@@ -62,3 +62,4 @@ namespace CustomConnector.Data
         }
     }
 }
+// </CsvDataLoaderSnippet>

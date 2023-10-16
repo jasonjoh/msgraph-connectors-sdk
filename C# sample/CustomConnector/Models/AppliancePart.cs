@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-
 using Microsoft.Graph.Connectors.Contracts.Grpc;
-
 using static Microsoft.Graph.Connectors.Contracts.Grpc.SourcePropertyDefinition.Types;
-
 
 namespace CustomConnector.Models
 {
@@ -19,6 +16,7 @@ namespace CustomConnector.Models
         public int Inventory { get; set; }
         public List<string> Appliances { get; set; }
 
+        // <GetSchemaSnippet>
         public static DataSourceSchema GetSchema()
         {
             DataSourceSchema schema = new DataSourceSchema();
@@ -28,8 +26,10 @@ namespace CustomConnector.Models
                 {
                     Name = nameof(PartNumber),
                     Type = SourcePropertyType.Int64,
-                    DefaultSearchAnnotations = (uint)(SearchAnnotations.IsQueryable | SearchAnnotations.IsRetrievable),
-                    RequiredSearchAnnotations = (uint)(SearchAnnotations.IsQueryable | SearchAnnotations.IsRetrievable),
+                    DefaultSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsQueryable | SearchAnnotations.IsRetrievable),
+                    RequiredSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsQueryable | SearchAnnotations.IsRetrievable),
                 });
 
             schema.PropertyList.Add(
@@ -37,8 +37,10 @@ namespace CustomConnector.Models
                 {
                     Name = nameof(Name),
                     Type = SourcePropertyType.String,
-                    DefaultSearchAnnotations = (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
-                    RequiredSearchAnnotations = (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
+                    DefaultSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
+                    RequiredSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
                 });
 
             schema.PropertyList.Add(
@@ -55,8 +57,10 @@ namespace CustomConnector.Models
                 {
                     Name = nameof(Inventory),
                     Type = SourcePropertyType.Int64,
-                    DefaultSearchAnnotations = (uint)(SearchAnnotations.IsQueryable | SearchAnnotations.IsRetrievable),
-                    RequiredSearchAnnotations = (uint)(SearchAnnotations.IsQueryable | SearchAnnotations.IsRetrievable),
+                    DefaultSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsQueryable | SearchAnnotations.IsRetrievable),
+                    RequiredSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsQueryable | SearchAnnotations.IsRetrievable),
                 });
 
             schema.PropertyList.Add(
@@ -64,8 +68,10 @@ namespace CustomConnector.Models
                 {
                     Name = nameof(Appliances),
                     Type = SourcePropertyType.StringCollection,
-                    DefaultSearchAnnotations = (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
-                    RequiredSearchAnnotations = (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
+                    DefaultSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
+                    RequiredSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
                 });
 
             schema.PropertyList.Add(
@@ -73,13 +79,17 @@ namespace CustomConnector.Models
                 {
                     Name = nameof(Description),
                     Type = SourcePropertyType.String,
-                    DefaultSearchAnnotations = (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
-                    RequiredSearchAnnotations = (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
+                    DefaultSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
+                    RequiredSearchAnnotations = 
+                        (uint)(SearchAnnotations.IsSearchable | SearchAnnotations.IsRetrievable),
                 });
 
             return schema;
         }
+        // </GetSchemaSnippet>
 
+        // <ToCrawlItemSnippet>
         public CrawlItem ToCrawlItem()
         {
             return new CrawlItem
@@ -174,6 +184,6 @@ namespace CustomConnector.Models
                 
             return sourcePropertyValueMap;
         }
-
+        // </ToCrawlItemSnippet>
     }
 }

@@ -32,12 +32,17 @@ namespace CustomConnector.Connector
         /// <param name="responseStream">response as a stream. Keep sending crawl item in stream</param>
         /// <param name="context">Grpc caller context</param>
         /// <returns>Close stream and end function to indicate success and build appropriate OperationStatus object in case of an exception or failure.</returns>
-        public override async Task GetCrawlStream(GetCrawlStreamRequest request, IServerStreamWriter<CrawlStreamBit> responseStream, ServerCallContext context)
+        // <GetCrawlStreamSnippet>
+        public override async Task GetCrawlStream(
+            GetCrawlStreamRequest request, 
+            IServerStreamWriter<CrawlStreamBit> responseStream, 
+            ServerCallContext context)
         {
             try
             {
                 Log.Information("GetCrawlStream Entry");
-                var crawlItems = CsvDataLoader.GetCrawlItemsFromCsv(request.AuthenticationData.DatasourceUrl);
+                var crawlItems = CsvDataLoader.GetCrawlItemsFromCsv(
+                    request.AuthenticationData.DatasourceUrl);
                 foreach (var crawlItem in crawlItems)
                 {
                     CrawlStreamBit crawlStreamBit = this.GetCrawlStreamBit(crawlItem);
@@ -63,7 +68,7 @@ namespace CustomConnector.Connector
             }
 
         }
-
+        // </GetCrawlStreamSnippet>
 
         /// <summary>
         /// API to crawl datasource from the point where last incremental crawl ended
@@ -87,6 +92,7 @@ namespace CustomConnector.Connector
                            "'GetIncrementalCrawlStream' is not implemented."));
         }
 
+        // <GetCrawlStreamBitSnippet>
         private CrawlStreamBit GetCrawlStreamBit(CrawlItem crawlItem)
         {
             return new CrawlStreamBit
@@ -102,6 +108,6 @@ namespace CustomConnector.Connector
                 },
             };
         }
-
+        // </GetCrawlStreamBitSnippet>
     }
 }
